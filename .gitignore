@@ -1,0 +1,14 @@
+# Oryginalny zbiór danych
+/data/raw/
+
+# Lokalne środowiska Pythona
+.venv/
+venv/
+
+# Pliki generowane przez Python i Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Generowane wyniki
+/outputs/
