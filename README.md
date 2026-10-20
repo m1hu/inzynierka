@@ -12,7 +12,7 @@
 
 > `.\.venv\Scripts\Activate.ps1`
 
-2.1 Jeśli powershell blokuje uruchamianie skryptów wykonać komendę poniżej i ponowić aktywację
+>  Jeśli powershell blokuje uruchamianie skryptów wykonać komendę poniżej i ponowić aktywację
 
 > `Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned`
 
