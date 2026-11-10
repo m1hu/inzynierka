@@ -13,3 +13,6 @@ __pycache__/
 # Generowane wyniki
 /outputs/
 /praca_dyplomowa/
+
+# Lokalny kontekst pracy dla kolejnych czatów
+/.project-context/
