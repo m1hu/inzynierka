@@ -94,7 +94,15 @@ class UNet(nn.Module):
         logits = self.head(dec_conv4)
 
         return logits
-        
+
+def build_model(model_name):
+    match model_name:
+        case "unet":
+            return UNet()
+        case "miniunet":
+            return MiniUNet()
+        case _:
+            raise ValueError("niepoprawna nazwa modelu")
         
         
 
