@@ -8,6 +8,7 @@ from .evaluation import (
     evaluate_patients_3d,
     summarize_evaluation,
 )
+bce_criterion = torch.nn.BCEWithLogitsLoss()
 
 def soft_dice_loss(logits, targets, eps=1e-5):
     p = torch.sigmoid(logits)
@@ -17,8 +18,23 @@ def soft_dice_loss(logits, targets, eps=1e-5):
 
     return 1 - (num/den).mean()
 
-bce_criterion = torch.nn.BCEWithLogitsLoss()
 
+def soft_dice_loss_batch(logits, targets, eps=1e-5):
+    p = torch.sigmoid(logits)
+
+    num = 2*(p*targets).sum() + eps
+    den = p.sum() + targets.sum() + eps
+
+    return 1 - (num/den)
+
+    
+def bce_dice_batch_loss(logits, targets):
+    bce = bce_criterion(logits, targets)
+    soft_dice = soft_dice_loss_batch(logits, targets)
+
+    return bce + soft_dice
+
+    
 def bce_dice_loss(logits, targets):
     bce = bce_criterion(logits, targets)
     soft_dice = soft_dice_loss(logits, targets)
@@ -122,6 +138,8 @@ def run_experiments(config, project_root, train_dataset, val_dataset):
         
             if config["loss"] == "bce_dice":
                 criterion = bce_dice_loss
+            elif config["loss"] == "bce_dice_batch":
+                criterion = bce_dice_batch_loss
             else:
                 raise ValueError("nieznany loss")
         

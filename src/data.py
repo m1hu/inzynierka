@@ -68,8 +68,14 @@ class MRIDataset(Dataset):
         )
 
         if self.transform is not None:
-            return self.transform(image, mask)
-            
+            image_fill = np.zeros(image.shape[0], dtype=np.float32)
+        
+            if stats is not None:
+                mean, std = stats
+                image_fill = (-mean / std).astype(np.float32)
+        
+            return self.transform(image, mask, image_fill)
+        
         return image, mask
 
 
